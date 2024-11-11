@@ -735,27 +735,10 @@
     next "^14"
     wagmi "^2.12.12"
 
-"@civic/auth@0.0.1-beta.18":
+"@civic/auth@0.0.1-beta.18", "@civic/auth@^0.0.1-beta.17":
   version "0.0.1-beta.18"
   resolved "https://registry.yarnpkg.com/@civic/auth/-/auth-0.0.1-beta.18.tgz#a09747bbc542e8492fafff6256252a3c3e47d099"
   integrity sha512-A2AE4D1byTET1wjs8ftBLeXEm+cl2SIeUknNP+9GunORwO9NU37GqgrII6rfZ7B78CoNLnCsfm+OGlzEW9PLzA==
-  dependencies:
-    "@tanstack/react-query" "^5.56.2"
-    autoprefixer "^10.4.20"
-    clsx "^2.1.1"
-    debug "^4.3.7"
-    jose "^5.9.4"
-    oslo "^1.2.1"
-    picomatch "^4.0.2"
-    postcss "8.4.47"
-    tailwind-merge "^2.5.3"
-    tailwindcss "3.4.13"
-    uuid "^10.0.0"
-
-"@civic/auth@file:civic-auth-0.0.1-beta.17.tgz":
-  version "0.0.1-beta.17"
-  resolved "file:civic-auth-0.0.1-beta.17.tgz"
-  integrity sha512-GI79IEcjyB+PYtqoc2KChtZhPqz9aXI4QMKU+UJQ3iGyqaNaMolIK6P9Hv815555muoBajUBTpSG0ZP3EKF+wA==
   dependencies:
     "@tanstack/react-query" "^5.56.2"
     autoprefixer "^10.4.20"
