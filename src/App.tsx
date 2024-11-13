@@ -3,9 +3,6 @@ import { WagmiProvider, createConfig, useAccount, useConnect, useSendTransaction
 import { CivicAuthProvider, embeddedWallet, NewWeb3User, useUser, Web3User } from '@civic/auth-web3';
 import { mainnet, sepolia } from "wagmi/chains";
 
-const CLIENT_ID = process.env.CLIENT_ID;
-if (!CLIENT_ID) throw new Error('CLIENT_ID is required');
-
 const userHasWallet = (user: any) => (user.user as Web3User).walletAddress;
 
 const wagmiConfig = createConfig({
