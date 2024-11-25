@@ -1,21 +1,24 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, useAccount, useConnect, useSendTransaction, http } from 'wagmi';
 import { embeddedWallet, userHasWallet } from '@civic/auth-web3';
-import { CivicAuthProvider, useUser } from '@civic/auth-web3/react';
-import { mainnet, sepolia } from "wagmi/chains";
+import { CivicAuthProvider, UserButton, useUser } from '@civic/auth-web3/react';
+import { baseSepolia, mainnet, polygonAmoy, sepolia } from "wagmi/chains";
+import { useEffect } from "react";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 if (!CLIENT_ID) throw new Error('CLIENT_ID is required');
 
+
 const wagmiConfig = createConfig({
-  chains: [ mainnet, sepolia ],
+  chains: [ baseSepolia, polygonAmoy ],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [baseSepolia.id]: http(),
+    [polygonAmoy.id]: http(),
   },
   connectors: [
-    embeddedWallet(),
+    embeddedWallet({ debug: true }),
   ],
+  ssr: true,
 });
 
 // Wagmi requires react-query
@@ -45,15 +48,20 @@ const App = () => {
   const sendTx = () => sendTransaction({
     to: '0x...',
     value: 1000n,
-  })
+  });
+
+  useEffect(() => {
+    console.log('userContext print', userContext);
+  }, [userContext])
 
   return (
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <CivicAuthProvider clientId={CLIENT_ID}>
-            { userContext && !userHasWallet(userContext) &&
+            { !userHasWallet(userContext) &&
                 <button onClick={createWallet}>Create Wallet</button>
             }
+            {userContext && <UserButton />}
             {!isConnected ? (
                 <button onClick={connectExistingWallet}>Connect Wallet</button>
             ) : (
