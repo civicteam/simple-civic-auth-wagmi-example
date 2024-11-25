@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, useAccount, useConnect, useSendTransaction, http } from 'wagmi';
-import { CivicAuthProvider, embeddedWallet, userHasWallet, useUser } from '@civic/auth-web3';
+import { embeddedWallet, userHasWallet } from '@civic/auth-web3';
+import { CivicAuthProvider, useUser } from '@civic/auth-web3/react';
 import { mainnet, sepolia } from "wagmi/chains";
 
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -22,7 +23,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   // the civic user hook
-  const { user } = useUser();
+  const userContext = useUser();
 
   // add the wagmi hooks
   const { connect, connectors } = useConnect();
@@ -31,9 +32,9 @@ const App = () => {
 
   // A function that creates the wallet if the user doesn't have one already
   const createWallet = () => {
-    if (user && !userHasWallet(user)) {
+    if (userContext && !userHasWallet(userContext)) {
       // once the wallet is created, we can connect it straight away
-      return user.createWallet().then(connectExistingWallet)
+      return userContext.createWallet().then(connectExistingWallet)
     }
   }
 
@@ -50,7 +51,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={wagmiConfig}>
           <CivicAuthProvider clientId={CLIENT_ID}>
-            { user && !userHasWallet &&
+            { userContext && !userHasWallet(userContext) &&
                 <button onClick={createWallet}>Create Wallet</button>
             }
             {!isConnected ? (
