@@ -2,22 +2,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, useAccount, useConnect, useSendTransaction, http } from 'wagmi';
 import { embeddedWallet, userHasWallet } from '@civic/auth-web3';
 import { CivicAuthProvider, UserButton, useUser } from '@civic/auth-web3/react';
-import { baseSepolia, polygonAmoy } from "wagmi/chains";
-import { useEffect } from "react";
+import { mainnet, sepolia } from "wagmi/chains";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 if (!CLIENT_ID) throw new Error('CLIENT_ID is required');
 
 const wagmiConfig = createConfig({
-  chains: [baseSepolia, polygonAmoy],
+  chains: [ mainnet, sepolia ],
   transports: {
-    [baseSepolia.id]: http(),
-    [polygonAmoy.id]: http(),
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
   },
   connectors: [
-    embeddedWallet({ debug: true }),
+    embeddedWallet(),
   ],
-  ssr: true,
 });
 
 // Wagmi requires react-query
@@ -26,6 +24,8 @@ const queryClient = new QueryClient();
 // Separate component for the app content that needs access to hooks
 const AppContent = () => {
   const userContext = useUser();
+  const { isLoading, isAuthenticated } = userContext;
+
   const { connect, connectors } = useConnect();
   const { isConnected } = useAccount();
   const { sendTransaction } = useSendTransaction();
@@ -37,30 +37,33 @@ const AppContent = () => {
     }
   };
 
-  const connectExistingWallet = () => connect({
-    connector: connectors[0]
-  });
+  const connectExistingWallet = () => { 
+    return connect({
+      connector: connectors[0]
+    });
+  };
 
   const sendTx = () => sendTransaction({
     to: '0x...',
     value: 1000n,
   });
 
-  useEffect(() => {
-    console.log('userContext print', userContext);
-  }, [userContext]);
-
   return (
     <>
-      {!userHasWallet(userContext) &&
-        <button onClick={createWallet}>Create Wallet</button>
+      <UserButton displayMode={"new_tab"} />
+      {isLoading &&
+        <p>Loading...</p>
       }
-      {userContext && <UserButton />}
-      {!isConnected ? (
-        <button onClick={connectExistingWallet}>Connect Wallet</button>
-      ) : (
-        <button onClick={sendTx}>Send Transaction</button>
-      )}
+      {!isLoading && userHasWallet(userContext) &&
+        <p>
+          Wallet address: {userContext.walletAddress}
+          {!isConnected && <div><button onClick={connectExistingWallet}>Connect Wallet</button></div>}
+          {isConnected && <div><button onClick={sendTx}>Send Transaction</button></div>}
+        </p>
+      }
+      {!isLoading && !userHasWallet(userContext) && isAuthenticated &&
+        <p><button onClick={createWallet}>Create Wallet</button></p>
+      }
     </>
   );
 };
