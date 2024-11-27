@@ -4,7 +4,7 @@ import { embeddedWallet, userHasWallet } from '@civic/auth-web3';
 import { CivicAuthProvider, UserButton, useUser } from '@civic/auth-web3/react';
 import { mainnet, sepolia } from "wagmi/chains";
 
-const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 if (!CLIENT_ID) throw new Error('CLIENT_ID is required');
 
 const wagmiConfig = createConfig({
