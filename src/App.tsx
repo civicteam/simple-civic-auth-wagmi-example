@@ -81,7 +81,7 @@ const AppContent = () => {
           }
           {userHasWallet(userContext) &&
             <>
-              Wallet address: {userContext.walletAddress}
+              <p>Wallet address: {userContext.walletAddress}</p>
               {isConnected ? (
                   <button onClick={sendTx}>Send Transaction</button>
                 ) : (
