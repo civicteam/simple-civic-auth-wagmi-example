@@ -75,9 +75,9 @@ const AppContent = () => {
     <>
       <UserButton />
       {userContext.user &&
-        <p>
+        <div>
           {!userHasWallet(userContext) &&
-            <button onClick={createWallet}>Create Wallet</button>
+            <p><button onClick={createWallet}>Create Wallet</button></p>
           }
           {userHasWallet(userContext) &&
             <>
@@ -89,7 +89,7 @@ const AppContent = () => {
               )}
             </>
           }
-        </p>
+        </div>
       }
     </>
   );
