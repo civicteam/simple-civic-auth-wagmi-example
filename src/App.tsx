@@ -50,18 +50,18 @@ const AppContent = () => {
 
   return (
     <>
-      <UserButton displayMode={"new_tab"} />
+      <UserButton />
       {isLoading &&
         <p>Loading...</p>
       }
-      {!isLoading && userHasWallet(userContext) &&
-        <p>
+      {!isLoading && isAuthenticated && userHasWallet(userContext) &&
+        <>
           Wallet address: {userContext.walletAddress}
-          {!isConnected && <div><button onClick={connectExistingWallet}>Connect Wallet</button></div>}
-          {isConnected && <div><button onClick={sendTx}>Send Transaction</button></div>}
-        </p>
+          {!isConnected && <p><button onClick={connectExistingWallet}>Connect Wallet</button></p>}
+          {isConnected && <p><button onClick={sendTx}>Send Transaction</button></p>}
+        </>
       }
-      {!isLoading && !userHasWallet(userContext) && isAuthenticated &&
+      {!isLoading && isAuthenticated && !userHasWallet(userContext) &&
         <p><button onClick={createWallet}>Create Wallet</button></p>
       }
     </>
@@ -73,7 +73,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={wagmiConfig}>
-        <CivicAuthProvider clientId={CLIENT_ID}>
+        <CivicAuthProvider clientId={CLIENT_ID} >
           <AppContent />
         </CivicAuthProvider>
       </WagmiProvider>

@@ -234,12 +234,12 @@
   resolved "https://registry.yarnpkg.com/@biomejs/cli-win32-x64/-/cli-win32-x64-1.9.4.tgz#4c7afa90e3970213599b4095e62f87e5972b2340"
   integrity sha512-8Y5wMhVIPaWe6jw2H+KlEm4wP/f7EW3810ZLmDlrEEy5KvBsb9ECEfu/kMWD484ijfQ8+nIi0giMgu9g1UAuuA==
 
-"@civic/auth-web3@0.0.3-beta.4":
-  version "0.0.3-beta.4"
-  resolved "https://registry.yarnpkg.com/@civic/auth-web3/-/auth-web3-0.0.3-beta.4.tgz#0febb0ee88a7502ff68f159b367502d5e9d361ea"
-  integrity sha512-XlDynXxZzgJaMG2NMmwpheuasoEt3HS9GtXSUO49P/CJgZqZBiBL5EMrLYOFhgJ4+dQkFeHrYWgSXsr/2TfeCg==
+"@civic/auth-web3@0.0.3-beta.5":
+  version "0.0.3-beta.5"
+  resolved "https://registry.yarnpkg.com/@civic/auth-web3/-/auth-web3-0.0.3-beta.5.tgz#01d8a21daa4a03fa547e018f59a116d78f0421cb"
+  integrity sha512-qXA1EvfXQclv5+q+0E0twUMNGSGjO3/rH0khQNdOGvbMPHUGONADRRxQ4VOgkMsZoXbCnLFH9cHMjHIPEl06mQ==
   dependencies:
-    "@civic/auth" "0.0.1-beta.22"
+    "@civic/auth" "0.0.1-beta.23"
     "@noble/hashes" "^1.5.0"
     "@turnkey/sdk-browser" "^1.7.0"
     "@turnkey/sdk-react" "^1.0.11"
@@ -252,10 +252,10 @@
     next "^14"
     wagmi "^2.12.29"
 
-"@civic/auth@0.0.1-beta.22":
-  version "0.0.1-beta.22"
-  resolved "https://registry.yarnpkg.com/@civic/auth/-/auth-0.0.1-beta.22.tgz#343566783acdcddb68ee497d68885173eed5d274"
-  integrity sha512-Tc7ej6PyzhqcR7plfBMFv2+y4T+MBMckhvQT67z97MC2cO2LzLYBm0nurc2+3mIvfAbRJAl27WjWPt8mcZpvGg==
+"@civic/auth@0.0.1-beta.23":
+  version "0.0.1-beta.23"
+  resolved "https://registry.yarnpkg.com/@civic/auth/-/auth-0.0.1-beta.23.tgz#c60e03ac7638759bf2341d5b9edbae08e61fd151"
+  integrity sha512-EZy81ks0lkw3jA8/5wb2S8bBWuwXd2mTm0GQvaBf6t++bfpr70PFtu+QR1gvnq0qOZu29I6ZTBLZNFVnWGYIPA==
   dependencies:
     "@tanstack/react-query" "^5.56.2"
     autoprefixer "^10.4.20"
