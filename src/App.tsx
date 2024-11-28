@@ -56,7 +56,7 @@ const AppContent = () => {
   return (
     <>
       <UserButton />
-      {!userContext.user && <>Loading user...</>}
+      {!userContext.user && <>Waiting for user...</>}
       {userContext.user &&
         <div>
           {!isConnected && <button onClick={userContext.connectOrCreateWallet}>Connect or create Wallet</button>}
