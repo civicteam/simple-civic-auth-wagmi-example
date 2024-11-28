@@ -6,7 +6,6 @@ import {
   useConnect,
   useSendTransaction,
   http,
-  Connector,
 } from 'wagmi';
 import { embeddedWallet, userHasWallet } from '@civic/auth-web3';
 import { CivicAuthProvider, UserButton, useUser } from '@civic/auth-web3/react';
@@ -53,7 +52,7 @@ const AppContent = () => {
   // A function to connect an existing civic embedded wallet
   const connectExistingWallet = () => { 
     return connect({
-      connector: connectors.find(c => c.type === "civic") as Connector,
+      connector: connectors[0],
     });
   };
 
